@@ -1,0 +1,23 @@
+.pizzaModal{
+    background-color: #E45327;
+    color: white ;
+    width: 500px;
+    text-align: center;
+    border-radius: 15px;
+    margin-left: auto;
+    margin-top: 3%;
+    margin-right: auto;
+}
+
+.confirmationModal{
+    background-color: #E45327;
+    color: white ;
+    width: 500px;
+    text-align: center;
+    border-radius: 15px;
+    margin-left: auto;
+    margin-top: 3%;
+    margin-right: auto;
+    margin-bottom: 3%;
+
+}

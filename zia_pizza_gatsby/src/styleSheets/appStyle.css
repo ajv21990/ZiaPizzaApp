@@ -1,0 +1,90 @@
+#app{
+    background-color: rgb(221, 159, 117);
+    padding-bottom: 15%;
+
+}
+
+#appFont{
+    color: white;
+}
+
+.PizzaForm{
+    background-color: white;
+    opacity: .5;
+    width: 75%;
+    margin: auto;
+    border-radius: 25px;
+    padding: 25px;
+    
+}
+
+.pizzaHeader{
+    background-color: rgb(221, 159, 117);
+    padding-bottom: 25px;
+    background: url("http://www.ziagourmetpizza.com/wp-content/uploads/2017/08/Back-overlay.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.pizzaMenu{
+    background-color: #FF771C;
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+}
+
+.cursive{
+    font-family: cursive;
+    color: white
+}
+
+.aboutUsComp{
+    background-color: rgb(221, 159, 117);
+    padding-bottom: 50px;
+    padding-top: 50px;
+}
+
+.aboutP{
+    font-size: 18px;
+}
+
+.OrderCompletePage{
+    background-color: #FF771C;
+    padding-top: 5%;
+    padding-bottom: 15%;
+    color: white;
+    text-align: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.FormPage{
+    background-color:#FF771C;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-size: 800px;
+    background-repeat: no-repeat;
+}
+
+.formikForm{
+    padding-bottom: 15%;
+    padding-left: 15%;
+    padding-right: 15%;
+
+}
+
+.buttonSubmit{
+    opacity: 1;
+}
+
+.locateUs{
+    background-color: #E45327;
+    color: white;
+}
