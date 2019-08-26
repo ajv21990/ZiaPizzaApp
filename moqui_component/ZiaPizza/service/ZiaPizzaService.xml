@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-2.1.xsd">
+    <service verb="order" noun="Pizza" authenticate="anonymous-all">
+        <in-parameters>
+            <parameter name="firstName" required="true"/>
+            <parameter name="lastName" required="true"/>
+            <parameter name="emailAddress" required="true"/>
+            <parameter name="contactNumber" required="true"/>
+            <parameter name="address1" required="true"/>
+            <parameter name="unitNumber" required="false"/>
+            <parameter name="city" required="true"/>
+            <parameter name="stateProvinceGeoId" required="true"/>
+            <parameter name="postalCode" required="true"/>
+            <parameter name="cardNumber" required="true"/>
+            <parameter name="cardSecurityCode" required="true"/>
+            <parameter name="expireDate" required="true"/>
+            <parameter name="productId" required="true"/>
+            <parameter name="comments" required="false"/>
+            <parameter name="quantity" required="true"/>
+
+        </in-parameters>
+
+        <out-parameters>
+        </out-parameters>
+
+        <actions>
+
+
+
+            <!-- Creating a customer that filled out form. -->
+            <service-call name="mantle.party.PartyServices.create#PersonCustomer" in-map="context" out-map="context"/>
+
+            <!-- Adding a customer party ID and from the previous output  -->
+            <!-- Also setting the vendor to the store/seller -->
+            <set field="customerPartyId" from="partyId"/>
+            <set field="vendorPartyId" value="ZiaPizza"/>
+            <service-call name="mantle.order.OrderServices.create#Order" in-map="context" out-map="context"/>
+
+            <!-- Once order is created then setting productId to premade donation product -->
+            <!-- Next two services orders the product quantity and sets up the payment -->
+            <set field="productStoreId" value="ZiaPizza"/>
+
+            <!-- Testing products here, comment out when in test and production -->
+            <!-- <set field="productId" value="100103"/> -->
+
+            <!-- 100102 Papay
+             100000 New Yorker
+             100106 Vegan-Spinach
+             100204 Pepperoni
+             100158 Asset V-S
+             C100000 Pizza Container
+              -->
+
+            <service-call name="mantle.order.OrderServices.add#OrderProductQuantity" in-map="context" out-map="context"/>
+            <service-call name="mantle.order.OrderServices.add#OrderPartPayment" in-map="context" out-map="context"/>
+
+            <service-call name="mantle.account.PaymentServices.get#PaymentTotals" in-map="context" out-map="context"/>
+
+            <!-- <service-call name="mantle.product.PriceServices.get#ProductPrice" in-map="context" out-map="context"/> -->
+            <set field="amount" from="paymentTotal"/>
+
+            <!-- For testing purposes setting the paymentGatewayConfigId to approve and authorize payments. -->
+
+            <set field="paymentGatewayConfigId" value="TEST_APPROVE"/>
+            <!-- <set field="paymentGatewayConfigId" value="StripeDemo"/> -->
+            <!-- <set field="chargeId" value="cus_FVXGOBCifkiVC6"/> -->
+
+
+            <!-- <service-call name="Stripe.StripePaymentServices.authorizeAndCapture#Payment" in-map="context"/> -->
+
+            <!-- <service-call name="mantle.account.PaymentServices.authorize#SinglePayment" in-map="context" out-map="context"/>
+            <service-call name="mantle.account.PaymentServices.capture#SinglePayment" in-map="context" out-map="context"/> -->
+
+            <!-- Place order once stripe has taken payment -->
+            <service-call name="mantle.order.OrderServices.place#Order" in-map="context"/>
+
+            <!-- Stripe Call-->
+            <service-call name="ZiaPizzaService.charge#Stripe" in-map="context"/>
+
+
+
+        </actions>
+    </service>
+
+
+    <service verb="charge" noun="Stripe" type="java" location="com.mk.moqui.StripeService" method="hitStripe" authenticate="anonymous-all">
+        <in-parameters>
+            <parameter name="amount" required="true"/>
+        </in-parameters>
+
+        <out-parameters>
+        </out-parameters>
+
+    </service>
+</services>

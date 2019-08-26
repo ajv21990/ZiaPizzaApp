@@ -1,0 +1,10 @@
+<screen require-authentication="anonymous-all" standalone="true" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd" track-artifact-hit="false" default-menu-include="false">
+
+    <subscreens default-item="ZiaPizzaForm"/>
+
+    <widgets>
+        <subscreens-active />
+    </widgets>
+</screen>
+
